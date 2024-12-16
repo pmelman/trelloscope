@@ -3,30 +3,30 @@
   "description": "A Trello Power-Up that uses LLM to play Microscope storytelling game",
   "details": "Adds AI-powered storytelling capabilities to your Trello board following Microscope game rules",
   "icon": {
-    "url": "./icon.png",
+    "url": "https://pmelman.github.io/trelloscope/icon.png",
     "height": 64,
     "width": 64
   },
   "author": "Trelloscope",
   "capabilities": {
     "board-buttons": {
-      "callback": "./index.html",
+      "callback": "https://pmelman.github.io/trelloscope/index.html",
       "title": "LLM Turn",
       "icon": {
-        "dark": "./icon.png",
-        "light": "./icon.png"
+        "dark": "https://pmelman.github.io/trelloscope/icon.png",
+        "light": "https://pmelman.github.io/trelloscope/icon.png"
       }
     },
     "authorization-status": {
-      "callback": "./index.html"
+      "callback": "https://pmelman.github.io/trelloscope/index.html"
     },
     "show-settings": {
-      "callback": "./index.html"
+      "callback": "https://pmelman.github.io/trelloscope/index.html"
     }
   },
   "connectors": {
     "iframe": {
-      "url": "./index.html"
+      "url": "https://pmelman.github.io/trelloscope/index.html"
     }
   }
 }
