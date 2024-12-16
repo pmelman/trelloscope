@@ -1,18 +1,32 @@
 {
-    "capabilities": {
-      "card-buttons": {
-        "url": "https://your-username.github.io/trello-power-up/index.html",
-        "height": 100
+  "name": "Trelloscope",
+  "description": "A Trello Power-Up that uses LLM to play Microscope storytelling game",
+  "details": "Adds AI-powered storytelling capabilities to your Trello board following Microscope game rules",
+  "icon": {
+    "url": "./icon.png",
+    "height": 64,
+    "width": 64
+  },
+  "author": "Trelloscope",
+  "capabilities": {
+    "board-buttons": {
+      "callback": "./index.html",
+      "title": "LLM Turn",
+      "icon": {
+        "dark": "./icon.png",
+        "light": "./icon.png"
       }
     },
-    "name": "My Trello Power-Up",
-    "description": "An example Power-Up hosted on GitHub.",
-    "icon": {
-      "url": "https://your-username.github.io/trello-power-up/icon.png",
-      "height": 64,
-      "width": 64
+    "authorization-status": {
+      "callback": "./index.html"
     },
-    "author": "Your Name or Company",
-    "capabilityGroups": ["card-detail"]
+    "show-settings": {
+      "callback": "./index.html"
+    }
+  },
+  "connectors": {
+    "iframe": {
+      "url": "./index.html"
+    }
   }
-  
+}
