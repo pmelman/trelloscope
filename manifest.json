@@ -1,0 +1,18 @@
+{
+    "capabilities": {
+      "card-buttons": {
+        "url": "https://your-username.github.io/trello-power-up/index.html",
+        "height": 100
+      }
+    },
+    "name": "My Trello Power-Up",
+    "description": "An example Power-Up hosted on GitHub.",
+    "icon": {
+      "url": "https://your-username.github.io/trello-power-up/icon.png",
+      "height": 64,
+      "width": 64
+    },
+    "author": "Your Name or Company",
+    "capabilityGroups": ["card-detail"]
+  }
+  
