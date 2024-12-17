@@ -8,6 +8,29 @@
 </head>
 <body>
   <script>
+    // Fallback clipboard function using textarea method
+    function fallbackCopyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.top = '0';
+      textarea.style.left = '0';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      try {
+        document.execCommand('copy');
+        console.log('Fallback: Copying text command was successful');
+      } catch (err) {
+        console.error('Fallback: Unable to copy', err);
+        throw err;
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+
     window.TrelloPowerUp.initialize({
       'board-buttons': function(t) {
         return [{
@@ -38,8 +61,13 @@
                 boardContent += '\n';
               });
 
-              // Copy to clipboard
-              await navigator.clipboard.writeText(boardContent);
+              // Try clipboard API first, fallback to textarea method if it fails
+              try {
+                await navigator.clipboard.writeText(boardContent);
+              } catch (clipboardError) {
+                console.warn('Clipboard API failed, falling back to textarea method', clipboardError);
+                fallbackCopyToClipboard(boardContent);
+              }
 
               // Success alert
               t.alert({
