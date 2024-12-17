@@ -41,10 +41,9 @@
           text: 'Copy Board',
           callback: async function(t) {
             try {
-              // Get lists and board data (including cards)
+              // Get lists and cards using proper scoped calls
               const lists = await t.lists('id', 'name');
-              const boardData = await t.board('cards');
-              const cards = boardData.cards;
+              const cards = await t.cards('id', 'name', 'desc', 'idList');
 
               // Build board content
               let boardContent = '';
