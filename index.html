@@ -29,8 +29,8 @@
                 // Add list name
                 boardContent += `Column: ${list.name}\n`;
                 
-                // Get cards for this list
-                const cards = await t.list('cards', list.id);
+                // Get cards for this list using t.cards() instead of t.list()
+                const cards = await t.cards('name', 'desc', { list: list.id });
                 
                 // Add each card's info
                 for (const card of cards) {
