@@ -18,9 +18,10 @@
           text: 'Copy Board',
           callback: async function(t) {
             try {
-              // Fetch board lists and cards
-              const lists = await t.lists('id', 'name'); // Get list IDs and names
-              const cards = await t.cards('idList', 'name', 'desc'); // Get cards' list IDs, names, and descriptions
+              // Get lists and board data (including cards)
+              const lists = await t.lists('id', 'name');
+              const boardData = await t.board('cards');
+              const cards = boardData.cards;
 
               // Build board content
               let boardContent = '';
@@ -49,7 +50,7 @@
             } catch (error) {
               console.error('Error copying board:', error);
               t.alert({
-                message: 'Error copying board content. Check console for details.',
+                message: 'Error copying board content: ' + error.message,
                 display: 'error',
                 duration: 3
               });
