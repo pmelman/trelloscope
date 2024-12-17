@@ -28,5 +28,11 @@
     "iframe": {
       "url": "https://pmelman.github.io/trelloscope/index.html"
     }
-  }
+  },
+  "permissions": [
+    "read",
+    "board",
+    "cards",
+    "lists"
+  ]
 }
