@@ -41,7 +41,40 @@
           text: 'Copy Board',
           callback: async function(t) {
             try {
-              // Get lists and cards using proper scoped calls
+              console.log('Starting board copy operation...');
+              
+              // Log available capabilities
+              console.log('Checking capabilities:', t);
+              
+              try {
+                console.log('Attempting to get lists...');
+                const lists = await t.lists('id', 'name');
+                console.log('Lists retrieved successfully:', lists);
+              } catch (listError) {
+                console.error('Error getting lists:', listError);
+                console.error('List error details:', {
+                  message: listError.message,
+                  stack: listError.stack,
+                  name: listError.name
+                });
+                throw listError;
+              }
+
+              try {
+                console.log('Attempting to get cards...');
+                const cards = await t.cards('id', 'name', 'desc', 'idList');
+                console.log('Cards retrieved successfully:', cards);
+              } catch (cardError) {
+                console.error('Error getting cards:', cardError);
+                console.error('Card error details:', {
+                  message: cardError.message,
+                  stack: cardError.stack,
+                  name: cardError.name
+                });
+                throw cardError;
+              }
+
+              // If we get here, both lists and cards were retrieved successfully
               const lists = await t.lists('id', 'name');
               const cards = await t.cards('id', 'name', 'desc', 'idList');
 
@@ -60,9 +93,12 @@
                 boardContent += '\n';
               });
 
+              console.log('Board content built successfully:', boardContent);
+
               // Try clipboard API first, fallback to textarea method if it fails
               try {
                 await navigator.clipboard.writeText(boardContent);
+                console.log('Clipboard API succeeded');
               } catch (clipboardError) {
                 console.warn('Clipboard API failed, falling back to textarea method', clipboardError);
                 fallbackCopyToClipboard(boardContent);
@@ -76,10 +112,17 @@
 
             } catch (error) {
               console.error('Error copying board:', error);
+              console.error('Full error details:', {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+                code: error.code,
+                type: error.type
+              });
               t.alert({
-                message: 'Error copying board content: ' + error.message,
+                message: `Error copying board content: ${error.message} (Type: ${error.name})`,
                 display: 'error',
-                duration: 3
+                duration: 5
               });
             }
           }
