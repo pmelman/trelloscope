@@ -18,9 +18,14 @@
           text: 'Copy Board',
           callback: async function(t) {
             try {
+              console.log('Starting board content generation...');
+              
               // Get lists and cards
               const lists = await t.lists('id', 'name');
+              console.log('Retrieved lists:', lists);
+              
               const cards = await t.cards('id', 'name', 'desc', 'idList');
+              console.log('Retrieved cards:', cards);
 
               // Build board content
               let boardContent = '';
@@ -37,17 +42,20 @@
                 boardContent += '\n';
               });
 
+              console.log('Generated board content:', boardContent);
+
               // Show popup with the content
-              t.popup({
+              console.log('Opening popup with content...');
+              return t.popup({
                 title: 'Copy Board Content',
                 url: './copy-prompt.html',
                 height: 200,
-                args: { content: boardContent }
+                args: { boardContent: boardContent }
               });
 
             } catch (error) {
               console.error('Error:', error);
-              t.alert({
+              return t.alert({
                 message: 'Error: ' + error.message,
                 display: 'error',
                 duration: 3

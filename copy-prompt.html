@@ -18,6 +18,8 @@
       border: 1px solid #ccc;
       border-radius: 3px;
       resize: none;
+      white-space: pre;
+      font-family: monospace;
     }
     button {
       background: #0079bf;
@@ -45,10 +47,24 @@
   <script>
     var t = window.TrelloPowerUp.iframe();
 
+    window.boardContent = '';
+
     // Get the content passed from the parent
-    t.arg('content').then(function(content) {
-      document.getElementById('content').value = content;
-    });
+    t.arg('boardContent')
+      .then(function(content) {
+        console.log('Received content:', content);
+        if (content) {
+          window.boardContent = content;
+          document.getElementById('content').value = content;
+        } else {
+          console.error('No content received from parent');
+          document.getElementById('content').value = 'Error: No content received';
+        }
+      })
+      .catch(function(err) {
+        console.error('Error getting content:', err);
+        document.getElementById('content').value = 'Error: ' + err.message;
+      });
 
     document.getElementById('copyButton').addEventListener('click', function() {
       const textarea = document.getElementById('content');
@@ -64,6 +80,7 @@
         }, 1000);
       } catch (err) {
         console.error('Failed to copy:', err);
+        alert('Failed to copy: ' + err.message);
       }
     });
   </script>
